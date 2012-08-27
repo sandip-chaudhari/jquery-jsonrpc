@@ -1,10 +1,6 @@
-# Changes done on this Fork
+# This Fork:
 
-## Backward compatibility
-
-Back ported some code to enable support for older versions of JSON-RPC i.e. > 1.0 onwards, e.g. for [Php Json-Rpc](http://jsonrpcphp.org/)
-
-## Credentials / Cookie support
+## Added Credentials / Cookie Support
 
 Optional  `withCredentials` boolean parameter added to setup. Default value set to `false`
 
