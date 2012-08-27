@@ -10,6 +10,9 @@
 
       // Default namespace for methods
       namespace: null,
+      
+      // support cookie, default false
+      withCredentials: false,
 
       /*
        * Provides the RPC client with an optional default endpoint and namespace
@@ -22,6 +25,7 @@
         this._validateConfigParams(params);
         this.endPoint = params.endPoint;
         this.namespace = params.namespace;
+        this.withCredentials = params.withCredentials;
         return this;
       },
 
@@ -46,7 +50,7 @@
       },
 
       /*
-       * Performas a single RPC request
+       * Performs a single RPC request
        *
        * @param {string} method The name of the rpc method to be called
        * @param {object} options A collection of object which can contains
@@ -171,10 +175,14 @@
           dataType: 'json',
           contentType: 'application/json',
           url: this._requestUrl(options.url),
+          xhrFields: {
+              withCredentials: this.withCredentials
+           },
           data: data,
           cache: false,
           processData: false,
           error: function(json) {
+        	  console.log('error-json: ' + JSON.stringify(json));
             _that._requestError.call(_that, json, options.error);
           },
           success: function(json) {
@@ -227,7 +235,7 @@
         }
       },
 
-      // Returns a generic RPC 2.0 compatible response object
+      // Returns a generic RPC > 1.0, compatible response object
       _response: function(json) {
         if (typeof(json) === 'undefined') {
           return {
@@ -240,11 +248,11 @@
             if(typeof(json) === 'string') {
               json = eval ( '(' + json + ')' );
             }
-
+	    
             if (($.isArray(json) && json.length > 0 && json[0].jsonrpc !== '2.0') ||
                 (!$.isArray(json) && json.jsonrpc !== '2.0')) {
               throw 'Version error';
-            }
+            } 
 
             return json;
           }

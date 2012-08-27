@@ -1,3 +1,23 @@
+# Changes done on this Fork
+
+## Backward compatibility
+
+Back ported some code to enable support for older versions of JSON-RPC i.e. > 1.0 onwards, e.g. for [Php Json-Rpc](http://jsonrpcphp.org/)
+
+## Credentials / Cookie support
+
+Optional  `withCredentials` boolean parameter added to setup. Default value set to `false`
+
+	$.jsonRPC.setup({
+	    endPoint: '/rpc',
+	    withCredentials: true
+	});
+
+#### Note
+You might need to take care of setting proper flags on server-size before the credentials can be used @ [transport layer](https://developer.mozilla.org/en-US/docs/HTTP_access_control#Requests_with_credentials)
+	
+- - -
+
 # JSON RPC 2.0 jQuery Plugin
 
 A [JSON RPC 2.0](http://groups.google.com/group/json-rpc/web/json-rpc-2-0) compatible client library and jQuery (1.4, 1.5, and 1.6 compatible) plugin.
